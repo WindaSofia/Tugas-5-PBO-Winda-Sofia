@@ -1,0 +1,96 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ProgramInheritance1
+{
+    public class KomisiKaryawan : object
+    {
+        public string NamaDepan;
+        public string NamaBelakang;
+        public string NomorKTP;
+        private decimal penjualKotor;
+        private decimal tarifKomisi;
+        public KomisiKaryawan(string namaDepan, string namaBelakang, string ktp, decimal penjualKotor, decimal tarifKomisi)
+        {
+            NamaDepan = namaDepan;
+            NamaBelakang = namaBelakang;
+            NomorKTP = ktp;
+            PenjualKotor = penjualKotor; 
+            TarifKomisi = tarifKomisi; 
+        }
+        public void setNamaDepan(string namaDepan)
+        {
+            NamaDepan = namaDepan;
+        }
+        public string getNamaDepan()
+        {
+            return NamaDepan;
+        }
+        public void setNamaBelakang(string namaBelakang)
+        {
+            NamaBelakang = namaBelakang;
+        }
+        public string getNamaBelakang()
+        {
+            return NamaBelakang;
+        }
+        public void setNoKTP(string ktp)
+        {
+            NomorKTP = ktp;
+        }
+        public string getNomorKTP()
+        {
+            return NomorKTP;
+        }
+        public decimal PenjualKotor
+        {
+            get
+            {
+                return penjualKotor;
+            }
+            set
+            {
+                penjualKotor = (value < 0) ? 0 : value;
+            }
+        }
+        public decimal TarifKomisi
+        {
+            get
+            {
+                return tarifKomisi;
+            }
+            set
+            {
+                tarifKomisi = (value > 0 && value < 1) ? value : 0;
+            }
+        }
+        public decimal Pendapatan()
+        {
+            return TarifKomisi * PenjualKotor;
+        }
+        public override string ToString()
+        {
+            return string.Format("Nama Depan : {0}, \nNama Belakang : {1}, \nNomor KTP : {2}, \nPenjual Kotor : {3}, \nTarif Komisi : {4}", NamaDepan, NamaBelakang, NomorKTP, penjualKotor, tarifKomisi);
+        }
+        static void Main(string[] args)
+        {
+            KomisiKaryawan karyawan = new KomisiKaryawan("Sue", "Jones", "222-22-222", 10000.00M, .06M);
+
+            Console.WriteLine("Informasi karyawan diperoleh dengan properti dan metode : \n");
+            Console.WriteLine("Nama Depan adalah {0}", karyawan.NamaDepan);
+            Console.WriteLine("Nama Belakang adalah {0}", karyawan.NamaBelakang);
+            Console.WriteLine("Nomor KTP adalah {0}", karyawan.NomorKTP);
+            Console.WriteLine("Penjual Kotor adalah {0:C}", karyawan.PenjualKotor);
+            Console.WriteLine("Tarif Komisi adalah {0:F2}", karyawan.TarifKomisi);
+            Console.WriteLine("Pendapatan adalah {0:C}", karyawan.Pendapatan());
+
+            karyawan.PenjualKotor = 5000.00M; 
+            karyawan.TarifKomisi = .1M; 
+            Console.WriteLine("\n{0}:\n\n{1}", "Informasi terbaru karyawan diperoleh dari ToString", karyawan);
+            Console.WriteLine("karyawan : {0:C}", karyawan.Pendapatan());
+            Console.ReadLine();
+        }
+    }
+}
